@@ -30,12 +30,14 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Matrix4f;
 
 import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 public class ClientGunTooltip implements ClientTooltipComponent {
     private static final DecimalFormat FORMAT = new DecimalFormat("#.##%");
@@ -68,7 +70,7 @@ public class ClientGunTooltip implements ClientTooltipComponent {
         ResourceLocation ammoId = tooltip.getAmmoId();
         this.gunIndex = tooltip.getGunIndex();
         this.display = TimelessAPI.getGunDisplay(gun).orElse(null);
-        this.ammo = AmmoItemBuilder.create().setId(ammoId).build();
+        this.ammo = new ItemStack(Objects.requireNonNull(ForgeRegistries.ITEMS.getValue(ammoId)), 1); // AmmoItemBuilder.create().setId(ammoId).build();
         this.maxWidth = 0;
         this.getText();
     }
