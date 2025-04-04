@@ -19,6 +19,8 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
 
+import java.util.Arrays;
+
 @SuppressWarnings("all")
 public class ModCreativeTabs {
     public static final DeferredRegister<CreativeModeTab> TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, GunMod.MOD_ID);
@@ -36,8 +38,8 @@ public class ModCreativeTabs {
 
     public static RegistryObject<CreativeModeTab> AMMO_TAB = TABS.register("ammo", () -> CreativeModeTab.builder()
             .title(Component.translatable("itemGroup.tab.tacz.ammo")).withTabsBefore(OTHER_TAB.getId())
-            .icon(() -> AmmoItemBuilder.create().setId(DefaultAssets.DEFAULT_AMMO_ID).build())
-            .displayItems((parameters, output) -> output.acceptAll(AmmoItem.fillItemCategory())).build());
+            .icon(ExtAmmo.shotgun_shell::getStack)
+            .displayItems((parameters, output) -> output.acceptAll(Arrays.stream(ExtAmmo.values()).map(ExtAmmo::getStack).toList())).build());
 
     public static RegistryObject<CreativeModeTab> ATTACHMENT_SCOPE_TAB = TABS.register("scope", () -> CreativeModeTab.builder()
             .title(Component.translatable("tacz.type.scope.name")).withTabsBefore(AMMO_TAB.getId())

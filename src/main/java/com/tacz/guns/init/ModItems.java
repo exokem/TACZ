@@ -5,12 +5,16 @@ import com.tacz.guns.api.item.gun.GunItemManager;
 import com.tacz.guns.item.*;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegisterEvent;
 import net.minecraftforge.registries.RegistryObject;
+
+import java.util.Arrays;
+import java.util.List;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ModItems {
@@ -31,17 +35,7 @@ public class ModItems {
     public static RegistryObject<Item> AMMO_BOX = ITEMS.register("ammo_box", AmmoBoxItem::new);
     public static RegistryObject<Item> TARGET_MINECART = ITEMS.register("target_minecart", TargetMinecartItem::new);
 
-    static RegistryObject<Item> registerExtAmmo(String name, int stackSize)
-    {
-        return ITEMS.register(name, () -> new ExtAmmoItem(name, stackSize));
-    }
-
-    public static final RegistryObject<Item> LIGHT_CARTRIDGE = registerExtAmmo("light_cartridge", 64);
-    public static final RegistryObject<Item> RIFLE_CARTRIDGE = registerExtAmmo("rifle_cartridge", 64);
-    public static final RegistryObject<Item> PRECISION_CARTRIDGE = registerExtAmmo("precision_cartridge", 32);
-    public static final RegistryObject<Item> AMR_CARTRIDGE = registerExtAmmo("amr_cartridge", 16);
-    public static final RegistryObject<Item> HIGH_EXPLOSIVE_CARTRIDGE = registerExtAmmo("high_explosive_cartridge", 8);
-    public static final RegistryObject<Item> SHOTGUN_SHELL = registerExtAmmo("shotgun_shell", 16);
+    static final List<RegistryObject<Item>> EXT_AMMO_ITEMS = Arrays.stream(ExtAmmo.values()).map(ammo -> ammo.register(ITEMS)).toList();
 
     @SubscribeEvent
     public static void onItemRegister(RegisterEvent event) {
