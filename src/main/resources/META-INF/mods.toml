@@ -5,7 +5,7 @@ license = "GPL3 / CC BY-NC-ND 4.0"
 [[mods]]
 modId = "tacz"
 version = "${file.jarVersion}"
-displayName = "Timeless & Classics Guns: Zero"
+displayName = "Those Who Shoot..."
 logoFile = "logo.png"
 updateJSONURL = ""
 displayURL = ""
